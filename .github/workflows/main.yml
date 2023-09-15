@@ -30,4 +30,4 @@ jobs:
 
     - name: Create Tunnel
       run: |
-        /home/runner/work/Ubantu/Ubantu/ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
+        /home/runner/work/Ubantu/Ubantu/ngrok ${{ secrets.NGROK_TUNNEL_COMMAND }}
