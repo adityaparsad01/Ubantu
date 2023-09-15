@@ -43,5 +43,4 @@ jobs:
         sudo chown -R www-data:www-data /var/www/html
 
     - name: Create Tunnel
-      run: |
-        /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
+      run: /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
