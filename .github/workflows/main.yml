@@ -16,7 +16,7 @@ jobs:
       run: tar -xzvf ngrok.tgz
 
     - name: Auth
-      run: ./ngrok/ngrok authtoken $Env:NGROK_AUTH_TOKEN
+      run: ./ngrok authtoken $Env:NGROK_AUTH_TOKEN
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
