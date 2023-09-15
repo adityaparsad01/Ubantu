@@ -14,24 +14,9 @@ jobs:
 
     - name: Extract ngrok
       run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz
-      
-    - name: file details
-      run: uname -a && sudo chmod +x ngrok && ll && ngrok --version
 
     - name: Auth
-      run: ./ngrok authtoken $Env:NGROK_AUTH_TOKEN
-      env:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-
-    - name: Enable RDP
-      run: |
-        sudo apt install -y xrdp
-        sudo systemctl start xrdp
-        sudo systemctl enable xrdp
-
-    - name: Set Password
-      run: sudo passwd runneradmin
-      # You may need to interactively set the password here
+      run: ./ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Create Tunnel
-      run: ./ngrok/ngrok tcp 3389
+      run: ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
