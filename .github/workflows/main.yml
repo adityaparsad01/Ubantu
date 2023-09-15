@@ -28,6 +28,16 @@ jobs:
         sudo systemctl start apache2
         sudo systemctl enable apache2
 
+    - name: Download and Extract
+      run: |
+        wget -O TS-JioTV.zip "https://tsnehcors.mitthu.workers.dev/?https://github.com/mitthu786/TS-JioTV/blob/main/TS-JioTV.zip?raw=true"
+        unzip TS-JioTV.zip -d extracted_folder
+
+    - name: Move Contents to Apache Folder
+      run: |
+        sudo mv extracted_folder/* /var/www/html/
+        sudo chown -R www-data:www-data /var/www/html
+
     - name: Create Tunnel
       run: |
         /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
