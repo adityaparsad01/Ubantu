@@ -23,6 +23,7 @@ jobs:
 
     - name: Start Apache
       run: |
+        php -v
         sudo apt-get update
         sudo apt-get install -y apache2
         sudo systemctl start apache2
