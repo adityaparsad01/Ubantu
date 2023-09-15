@@ -12,19 +12,15 @@ jobs:
 
     steps:
     - name: Download ngrok
-      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz
+      run: sudo -i && wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz && pwd
 
     - name: Extract ngrok
       run: tar -xzvf ngrok-v3-stable-linux-386.tgz && uname -m
 
-    - name: Find ngrok Path
-      run: find / -name ngrok
-      shell: bash
-
     - name: Auth
-      run: /path/to/ngrok authtoken $NGROK_AUTH_TOKEN
+      run: /root/ngrok authtoken $NGROK_AUTH_TOKEN
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Create Tunnel
-      run: /path/to/ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
+      run: /root/ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
