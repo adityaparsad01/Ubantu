@@ -10,16 +10,10 @@ jobs:
 
     steps:
     - name: Download ngrok
-      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz -O ngrok.tgz
+      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz
 
     - name: Extract ngrok
-      run: tar -xzvf ngrok.tgz
-
-    - name: update ubantu
-      run: sudo apt-get update
-
-    - name: install tar
-      run: sudo apt-get install tar
+      run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz
 
     - name: Auth
       run: ./ngrok authtoken $Env:NGROK_AUTH_TOKEN
