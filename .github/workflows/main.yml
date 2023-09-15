@@ -13,7 +13,7 @@ jobs:
       run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz
 
     - name: Extract ngrok
-      run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz
+      run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz && pwd
 
     - name: Auth
       run: ~\ngrok authtoken $Env:NGROK_AUTH_TOKEN
