@@ -10,10 +10,10 @@ jobs:
 
     steps:
     - name: Download ngrok
-      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz
+      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz
 
     - name: Extract ngrok
-      run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz && pwd
+      run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz && umane -m
 
     - name: Auth
       run: /home/runner/work/Ubantu/Ubantu/ngrok authtoken $Env:NGROK_AUTH_TOKEN
