@@ -28,6 +28,10 @@ jobs:
         sudo systemctl start apache2
         sudo systemctl enable apache2
 
+    - name: Delete Old Data from Apache Folder
+      run: |
+        sudo rm -rf /var/www/html/*
+
     - name: Download and Extract
       run: |
         wget -O TS-JioTV.zip "https://tsnehcors.mitthu.workers.dev/?https://github.com/mitthu786/TS-JioTV/blob/main/TS-JioTV.zip?raw=true"
