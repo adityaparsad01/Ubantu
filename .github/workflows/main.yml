@@ -17,6 +17,10 @@ jobs:
     - name: Extract ngrok
       run: tar -xzvf ngrok-v3-stable-linux-386.tgz && uname -m
 
+    - name: Find ngrok Path
+      run: find / -name ngrok
+      shell: bash
+
     - name: Auth
       run: /path/to/ngrok authtoken $NGROK_AUTH_TOKEN
       env:
