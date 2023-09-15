@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Download ngrok
-      run: sudo -i && wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz && pwd
+      run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz && pwd
 
     - name: Extract ngrok
-      run: tar -xzvf ngrok-v3-stable-linux-386.tgz && uname -m
+      run: tar -xzvf ngrok-v3-stable-linux-386.tgz
 
     - name: Auth
       run: /root/ngrok authtoken $NGROK_AUTH_TOKEN
