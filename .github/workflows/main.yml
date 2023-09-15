@@ -14,6 +14,9 @@ jobs:
 
     - name: Extract ngrok
       run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz
+      
+    - name: file details
+      run: ls && uname -a
 
     - name: Auth
       run: ./ngrok authtoken $Env:NGROK_AUTH_TOKEN
