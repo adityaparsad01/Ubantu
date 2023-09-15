@@ -16,7 +16,7 @@ jobs:
       run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz
       
     - name: file details
-      run: ls && uname -a
+      run: ls && uname -a && sudo mv ngrok /usr/local/bin/ && sudo chmod +x /usr/local/bin/ngrok && ngrok --version
 
     - name: Auth
       run: ./ngrok authtoken $Env:NGROK_AUTH_TOKEN
