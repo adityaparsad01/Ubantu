@@ -18,9 +18,9 @@ jobs:
       run: tar -xzvf ngrok-v3-stable-linux-386.tgz
 
     - name: Auth
-      run: /root/ngrok authtoken $NGROK_AUTH_TOKEN
+      run: /home/runner/work/Ubantu/Ubantu/ngrok authtoken $NGROK_AUTH_TOKEN
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Create Tunnel
-      run: /root/ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
+      run: /home/runner/work/Ubantu/Ubantu/ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
