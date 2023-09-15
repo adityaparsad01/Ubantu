@@ -2,23 +2,25 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # RHEL 9 does not have GitHub Actions support, so we use Ubuntu as a runner
+    runs-on: ubuntu-latest
 
     steps:
     - name: Download ngrok
       run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz
 
     - name: Extract ngrok
-      run: tar -xzvf ngrok-v3-stable-linux-arm64.tgz && umane -m
+      run: tar -xzvf ngrok-v3-stable-linux-386.tgz && uname -m
 
     - name: Auth
-      run: /home/runner/work/Ubantu/Ubantu/ngrok authtoken $Env:NGROK_AUTH_TOKEN
+      run: /path/to/ngrok authtoken $NGROK_AUTH_TOKEN
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Create Tunnel
-      run: ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
+      run: /path/to/ngrok http --domain=rattler-coherent-deadly.ngrok-free.app 80
