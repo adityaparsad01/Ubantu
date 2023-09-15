@@ -30,4 +30,4 @@ jobs:
 
     - name: Create Tunnel
       run: |
-        /home/runner/work/Ubantu/Ubantu/ngrok ${{ secrets.NGROK_TUNNEL_COMMAND }}
+        /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
