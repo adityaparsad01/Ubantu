@@ -21,8 +21,11 @@ jobs:
         sudo systemctl start nginx
         sudo systemctl enable nginx
 
-    - name: Auth and Create Tunnel.
+    - name: Auth
+      run: /home/runner/work/Ubantu/Ubantu/ngrok authtoken $NGROK_AUTH_TOKEN
+      env: 
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+         
+    - name: Create tunnel
       run: |
-         /home/runner/work/Ubantu/Ubantu/ngrok authtoken $NGROK_AUTH_TOKEN
-         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
          /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
