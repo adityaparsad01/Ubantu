@@ -21,23 +21,14 @@ jobs:
       env:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
-    - name: Start Apache
+    - name: Start Apache and run
       run: |
         sudo apt-get install -y apache2
         sudo systemctl start apache2
         sudo systemctl enable apache2
-
-    - name: Delete Old Data from Apache Folder
-      run: |
         sudo rm -rf /var/www/html/*
-
-    - name: Download and Extract
-      run: |
         wget -O TS-JioTV.zip "https://tsnehcors.mitthu.workers.dev/?https://github.com/mitthu786/TS-JioTV/blob/main/TS-JioTV.zip?raw=true"
         unzip TS-JioTV.zip -d extracted_folder
-
-    - name: Move Contents to Apache Folder
-      run: |
         sudo mv extracted_folder/* /var/www/html/
         sudo chown -R www-data:www-data /var/www/html
 
