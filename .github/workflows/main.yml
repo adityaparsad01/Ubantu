@@ -23,9 +23,6 @@ jobs:
 
     - name: Start Apache
       run: |
-        php -v
-        sudo apt-get update
-        AddType application/x-httpd-php .php
         sudo apt-get install -y apache2
         sudo systemctl start apache2
         sudo systemctl enable apache2
@@ -45,4 +42,5 @@ jobs:
         sudo chown -R www-data:www-data /var/www/html
 
     - name: Create Tunnel
-      run: /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
+      run: |
+        /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
