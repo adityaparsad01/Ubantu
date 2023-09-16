@@ -16,18 +16,13 @@ jobs:
         wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz
         tar -xzvf ngrok-v3-stable-linux-386.tgz
 
-    - name: Auth
-      run: /home/runner/work/Ubantu/Ubantu/ngrok authtoken $NGROK_AUTH_TOKEN
-      env:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-
     - name: Start Apache and run
       run: |
-        sudo apt-get install -y nginx
         sudo systemctl start nginx
         sudo systemctl enable nginx
-        sudo systemctl status nginx
 
-    - name: Create Tunnel
+    - name: Auth and Create Tunnel.
       run: |
-        /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
+         /home/runner/work/Ubantu/Ubantu/ngrok authtoken $NGROK_AUTH_TOKEN
+         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+         /home/runner/work/Ubantu/Ubantu/ngrok http ${{ secrets.NGROK_TUNNEL_COMMAND }} 80
