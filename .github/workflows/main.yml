@@ -23,17 +23,10 @@ jobs:
 
     - name: Start Apache and run
       run: |
-        sudo apt-get install -y apache2
-        sudo systemctl start apache2
-        sudo systemctl enable apache2
-        sudo rm -rf /var/www/html/*
-        wget -O TS-JioTV.zip "https://tsnehcors.mitthu.workers.dev/?https://github.com/mitthu786/TS-JioTV/blob/main/TS-JioTV.zip?raw=true"
-        unzip TS-JioTV.zip -d jiotv
-        sudo mv jiotv/* /var/www/html/
-        cd /var/www/html
-        ls
-        sudo chown -R www-data:www-data /var/www/html
-        nohup php -S 0.0.0.0:80 > /dev/null 2>&1 &
+        sudo apt-get install -y nginx
+        sudo systemctl start nginx
+        sudo systemctl enable nginx
+        sudo systemctl status nginx
 
     - name: Create Tunnel
       run: |
