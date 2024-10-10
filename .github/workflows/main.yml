@@ -19,17 +19,19 @@ jobs:
           java-version: '11'  # Adjust the version as needed
           distribution: 'adopt'
 
-      - name: Install Android SDK
+      - name: Install Android Command Line Tools
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
           wget https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
-          mkdir -p $HOME/android-sdk
+          mkdir -p $HOME/android-sdk/cmdline-tools
           unzip commandlinetools-linux-6609375_latest.zip -d $HOME/android-sdk/cmdline-tools
           rm commandlinetools-linux-6609375_latest.zip
+          mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
           echo "export ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "export PATH=\$PATH:\$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_ENV
           echo "export PATH=\$PATH:\$ANDROID_HOME/platform-tools" >> $GITHUB_ENV
+          echo "export PATH=\$PATH:\$ANDROID_HOME/tools" >> $GITHUB_ENV  # Add this line
 
       - name: Install Build Tools
         run: |
