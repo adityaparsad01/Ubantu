@@ -1,4 +1,4 @@
-name: CI
+name: ubantu
 on:
   push:
     branches: [ main ]
