@@ -6,7 +6,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # This remains unchanged to ensure compatibility with GitHub's infrastructure
+    name: Build on Ubantu  # Custom name for the job
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +38,7 @@ jobs:
           buildozer_version: master
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Updated to v3
         with:
           name: package
           path: ${{ steps.buildozer.outputs.filename }}
