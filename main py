@@ -1,1 +1,59 @@
+from kivy.app import App
+from kivy.uix.widget import Widget
+from kivy.graphics import Color, Ellipse
+from kivy.clock import Clock
+from kivy.core.window import Window
+import random
 
+class Particle:
+    def __init__(self, pos, size):
+        self.pos = list(pos)
+        self.size = size
+        self.color = [random.random() for _ in range(3)] + [1]
+        self.velocity = [random.uniform(-2, 2), random.uniform(-2, 2)]
+
+    def update(self):
+        self.pos[0] += self.velocity[0]
+        self.pos[1] += self.velocity[1]
+        self.velocity[1] -= 0.1  # Gravity
+        self.size *= 0.99  # Shrink over time
+
+class ParticleSystem(Widget):
+    def __init__(self, **kwargs):
+        super(ParticleSystem, self).__init__(**kwargs)
+        self.particles = []
+        Clock.schedule_interval(self.update, 1.0/60.0)
+
+    def on_touch_down(self, touch):
+        self.spawn_particles(touch.pos)
+
+    def on_touch_move(self, touch):
+        self.spawn_particles(touch.pos)
+
+    def spawn_particles(self, pos):
+        for _ in range(5):
+            self.particles.append(Particle(pos, random.uniform(10, 20)))
+
+    def update(self, dt):
+        self.canvas.clear()
+        particles_to_remove = []
+
+        for particle in self.particles:
+            particle.update()
+            
+            if particle.size < 0.5 or not self.collide_point(*particle.pos):
+                particles_to_remove.append(particle)
+            else:
+                with self.canvas:
+                    Color(*particle.color)
+                    Ellipse(pos=particle.pos, size=(particle.size, particle.size))
+
+        for particle in particles_to_remove:
+            self.particles.remove(particle)
+
+class ParticleApp(App):
+    def build(self):
+        return ParticleSystem()
+
+if __name__ == '__main__':
+    ParticleApp().run()
