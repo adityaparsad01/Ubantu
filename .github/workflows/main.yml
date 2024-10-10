@@ -1,16 +1,17 @@
-name: ubantu
+name: Build
+
 on:
   push:
     branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # This remains unchanged to ensure compatibility with GitHub's infrastructure
 
     steps:
       - uses: actions/checkout@v2
 
-      # used to cache dependencies with a timeout
+      # Used to cache dependencies with a timeout
       - name: Get Date
         id: get-date
         run: |
