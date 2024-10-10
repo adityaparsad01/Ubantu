@@ -1,75 +1,14 @@
-name: Build
+name: Example Workflow
 
-on:
-  push:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
-    name: Build on Ubuntu  # Custom name for the job
     runs-on: ubuntu-latest
-
+    timeout-minutes: 60  # Timeout after 60 minutes
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'  # Adjust the version as needed
-          distribution: 'adopt'
-
-      - name: Install Android Command Line Tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip
-          wget https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
-          mkdir -p $HOME/android-sdk/cmdline-tools
-          unzip commandlinetools-linux-6609375_latest.zip -d $HOME/android-sdk/cmdline-tools
-          rm commandlinetools-linux-6609375_latest.zip
-          # The extracted directory will be named 'cmdline-tools' directly under 'cmdline-tools'
-          mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
-          echo "export ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "export PATH=\$PATH:\$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_ENV
-          echo "export PATH=\$PATH:\$ANDROID_HOME/platform-tools" >> $GITHUB_ENV
-          echo "export PATH=\$PATH:\$ANDROID_HOME/tools" >> $GITHUB_ENV
-
-      - name: Install Build Tools
-        run: |
-          yes | sdkmanager --sdk_root=$ANDROID_HOME --install "build-tools;30.0.3"  # Change version as needed
-
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "date=$(date -u '+%Y%m%d')" >> $GITHUB_ENV
-
-      - name: Cache Buildozer Global Directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
-
-      - name: Cache Buildozer Directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ env.date }}-${{ hashFiles('buildozer.spec') }}
-
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: master
-
-      - name: Run AIDL
-        run: |
-          aidl -version  # Verify AIDL is available
-          # Run your AIDL commands here
-          # Example: aidl src/main/aidl/com/example/MyAidlService.aidl
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+      - name: Run build
+        run: echo "Building..."
